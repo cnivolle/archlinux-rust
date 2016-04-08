@@ -10,6 +10,11 @@ RUN pacman -Syu --noconfirm
 RUN pacman-db-upgrade
 RUN pacman -S --noconfirm unzip lib32-zlib binutils llvm gcc
 RUN pacman -S --noconfirm curl lib32-ncurses lib32-bzip2 lib32-libstdc++5 lib32-openssl
+RUN pacman -S sysstat
+
+RUN echo "<<=== Start DD install ===>>"
+RUN DD_API_KEY=64b9c0afcea4940746506697bd9849f4 sh -c "$(curl -L https://raw.githubusercontent.com/DataDog/dd-agent/master/packaging/datadog-agent/source/setup_agent.sh)"
+RUN echo "<<=== END install ===>>"
 
 RUN curl -sSf https://static.rust-lang.org/rustup.sh | sh -s -- --channel=nightly --disable-sudo -y
 
